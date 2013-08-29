@@ -14,7 +14,10 @@ var gallery = function(options){
 gallery.prototype.defaults = {}
 
 gallery.prototype.init = function(){
-	if(this.options.something)
+	if(!this.options.something){
 		console.log('Something!')
+		dontDoSomething()
+	}
+
 }
 
