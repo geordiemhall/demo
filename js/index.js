@@ -4,4 +4,6 @@
 
 $(function(){
 	console.log('Hello world')
+
+	Gallery();
 })
