@@ -1,0 +1,57 @@
+@import "nib"
+
+*
+	box-sizing border-box
+
+fonts = 'proxima-nova', Proxima Nova, Helvetica Neue LT Pro, sans-serif
+
+body
+html
+	margin 0
+	height 297mm
+	width 210mm
+	font 18pt/24pt fonts
+
+section 
+	height (297/3.1)mm
+	width 100%
+	display table
+	padding 0 2cm
+	border-bottom 1px dotted #ddd
+	page-break-inside avoid
+	overflow hidden
+
+@media print 
+	section:nth-child(3n)
+		border none
+
+
+div 
+	display table-cell
+	text-align center
+	vertical-align middle
+
+@page
+	margin 0
+	height 297mm
+	width 210mm
+
+span[class]
+	text-decoration line-through
+	
+
+.call-to-action
+	margin-top 50px
+	color #999
+	font-size 12pt
+
+	span
+		// font-weight bold
+		color #666
+
+.loading .call-to-action
+	display none
+
+.loading .loading
+	margin 50px auto
+	text-align center

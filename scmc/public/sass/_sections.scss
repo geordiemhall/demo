@@ -1,0 +1,114 @@
+/* Sections
+================================== */
+
+@mixin sectionBg($class, $color){
+	&.#{$class} {
+		background-color: $color;
+	}
+}
+
+header,
+footer,
+section {
+	background: #050505;
+}
+
+section {
+	$sectionPadding: 140px;
+	padding-top: $sectionPadding;
+	padding-bottom: $sectionPadding;
+	border-bottom: 1px solid #2b2b2b;
+
+	@include babyBear(){
+		& {
+			padding-top: $sectionPadding / 2;
+			padding-bottom: $sectionPadding / 2;
+		}
+	}
+
+	@include sectionBg(purple, #110c13);
+	@include sectionBg(green, #0e130c);
+	@include sectionBg(blue, #0c1013);
+	@include sectionBg(orange, #13120d);
+	@include sectionBg(red, #130f0c);
+}
+
+footer {
+	padding: 80px 0;
+	@extend .text-center;
+}
+
+$gap: 80px;
+
+.monster {
+	img {
+		float: right;
+		margin-bottom: 100px;
+		margin-left: $gap;
+
+		@include breakpoint(mama-bear){
+			max-width: 300px;
+			margin-left: $gap / 2;
+			margin-bottom: 50px;
+		}
+
+
+	}
+
+	&:nth-child(even) {
+		img {
+			float: left;
+			margin-left: 0 !important;
+			margin-right: $gap;
+
+			@include breakpoint(mama-bear){
+				max-width: 300px;
+				margin-right: $gap / 2;
+			}
+		}
+	}
+
+	@include breakpoint(baby-bear){
+
+		img {
+			float: none !important;
+			margin: 0;	
+		}
+
+		.portrait {
+			display: block;
+			max-width: 70%;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		h1 {
+			text-align: center;
+		}
+		
+	}
+}
+
+.weeks s {
+	color: #555;
+}
+
+.facebook-prompt {
+	img {
+		position: relative;
+		margin-right: 15px;
+		opacity: .4;
+		top: -2px;
+	}
+
+	@include breakpoint(baby-bear){
+		img {
+			margin: 0 0 15px;
+		}
+
+		span {
+			display: block;
+		}
+	}
+}
+
