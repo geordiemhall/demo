@@ -1,0 +1,158 @@
+/* Header
+================================== */
+
+.grass {
+	height: 218px;
+	background: url(/img/grass.jpg) repeat-x;
+	@include background-size(396px 218px);
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	@include box-shadow(0 5px 8px rgba(0,0,0,.27));
+
+	@include breakpoint(retina){
+		background-image: url(/img/grass-2x.jpg);
+	}
+}
+
+.city {
+	height: 371px;
+	background: #080812 url(/img/city.jpg) no-repeat top center;
+	@include background-size(cover);
+	@include breakpoint(retina){
+		background-image: url(/img/city-2x.jpg);
+	}
+}
+
+.scape {
+	height: 302px;
+	background: #0e0811 url(/img/scape.jpg) no-repeat top center;
+	@include background-size(cover);
+	border-bottom: 1px solid #271d1d;
+	display: table;
+	width: 100%;
+	@include box-sizing(border-box);
+
+	.container {
+		display: table-cell;
+		vertical-align: middle;
+		margin-top: 30px;
+	}
+}
+
+.logo {
+	@extend %ir;
+	width: 497px;
+	height: 529px;
+	margin: 0 auto;
+	background: url(/img/logo.png) no-repeat center top;
+	@include background-size(contain);
+	@include breakpoint(retina){
+		background-image: url(/img/logo-2x.png);
+	}
+
+
+	position: relative;
+	z-index: 10;
+	max-width: 100%;
+
+	@include breakpoint(baby-bear){
+		height: 460px;
+		background-image: url(/img/logo.png) !important;
+	}
+}
+
+nav {
+
+	text-align: center;
+
+	.container {
+		width: 700px;
+		padding-top: 46px;
+		position: relative;
+		z-index: 15;
+	}
+
+	.row {
+		margin: 0;
+	}
+
+	a {
+		position: relative;
+		// margin-top: -25px;
+		margin-bottom: -3px;
+		
+
+		&:hover {
+			opacity: 0.9;
+		}
+	}
+
+	.span6 {
+		@extend .clearfix;
+		margin: 0;
+		width: 350px;
+
+
+		&.left a {
+			float: right;
+		}
+
+		&.right a {
+			float: left;
+		}
+	}
+
+	$topMarg: 165px;
+	$botMarg: 135px;
+	.about { margin-right: $topMarg; }
+	.diaries { margin-left: $topMarg; }
+	.monsters { margin-right: $botMarg; }
+	.get-involved { margin-left: $botMarg; }
+
+	// @include breakpoint(papa-bear){
+
+	// 	.about { margin-left: 60px; }
+
+	// 	.diaries { margin-right: 40px; }
+	// }
+
+	
+
+	@include breakpoint(baby-bear){
+
+		.container {
+			padding-top: 25px;
+			@include scale(0.8);
+			@include transform-origin(bottom, center);
+			position: absolute;
+			left: 50%;
+			margin-left: -350px;
+		}
+
+		.span6 {
+			width: 100%;
+		}
+
+		.span6 a {
+			float: none !important;
+			margin: 0 !important;
+			display: inline-block !important;
+		}
+	}
+
+	@media (max-width: 400px){
+		.container {
+			padding-top: 15px;
+			@include scale(0.6);
+		}
+	}
+
+
+
+}
+
+@include img("about");
+@include img("monsters");
+@include img("diaries");
+@include img("get-involved");

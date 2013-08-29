@@ -1,0 +1,282 @@
+/* Util
+================================== */
+
+.clearfix {
+	*zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-justify {
+	text-align: justify;
+}
+
+.relative {
+	position: relative;
+}
+
+// Makes text just antialiased on OSX
+%fontSmooth {
+	-webkit-font-smoothing: antialiased;
+}
+
+
+.reset-list {
+	list-style: none;
+	margin: 0;
+}
+
+.hidden {
+	display: none;
+}
+
+.hide-overflow {
+	overflow: hidden;
+}
+
+%pushDown {
+	@include transition(transform .1s);
+	display: inline-block;
+
+	&:active {
+		@include translateY(2px);
+	}
+}
+
+%ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+%ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+
+// Mixins
+// -------------------------
+
+@mixin breakpoint($point) {
+  @if $point == papa-bear {
+    @media (min-width: 1200px) { @content; }
+  }
+  @else if $point == mama-bear {
+    @media (min-width: 768px) and (max-width: 979px) { @content; }
+  }
+  @else if $point == baby-bear {
+    @media (max-width: 767px)  { @content; }
+  }
+  @else if $point == retina {
+  	@media (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5){ @content; }
+  }
+}
+
+@mixin babyBear(){
+  @media (max-width: 767px) {
+   @content;
+  }
+}
+
+@mixin mamaBear(){
+	@media (min-width: 768px) and (max-width: 979px) {
+	 @content;
+	}
+}
+
+@mixin papaBear(){
+  @media (min-width: 1200px) {
+   @content;
+  }
+}
+
+
+
+@mixin selection(){
+	::selection {
+		@content;
+	}
+
+	::-moz-selection {
+		@content;
+	}
+}
+
+@mixin square($s){
+	width: $s;
+	height: $s;
+}
+
+@mixin size($w, $h){
+	width: $w;
+	height: $h;
+}
+
+@mixin fill(){
+	@include square(100%);
+}
+
+@mixin fillAbsolute(){
+	@include fill();
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+@mixin position ($position: relative, $coordinates: 0 0 0 0) {
+
+	@if type-of($position) == list {
+		$coordinates: $position;
+		$position: relative;
+	}
+
+	$top: nth($coordinates, 1);
+	$right: nth($coordinates, 2);
+	$bottom: nth($coordinates, 3);
+	$left: nth($coordinates, 4);
+
+	position: $position;
+
+	@if $top == auto {
+		top: $top;
+	}
+	@else if not(unitless($top)) {
+		top: $top;
+	}
+
+	@if $right == auto {
+		right: $right;
+	}
+	@else if not(unitless($right)) {
+		right: $right;
+	}
+
+	@if $bottom == auto {
+		bottom: $bottom;
+	}
+	@else if not(unitless($bottom)) {
+		bottom: $bottom;
+	}
+
+	@if $left == auto {
+		left: $left;
+	}
+	@else if not(unitless($left)) {
+		left: $left;
+	}
+}
+
+$doImages: 		true !default;
+$retina: 		true !default;
+$sprites1x: 	sprite-map("sprites/*.png");
+$sprites2x: 	sprite-map("sprites-2x/*.png") !default;
+
+// Creates a backgrounded image (and retina version if enabled)
+@mixin sprite-background($sprites, $name, $display: block){
+
+	@if $doImages {
+		@extend %ir;
+		background-repeat: no-repeat;
+		display: $display;
+		background-image: sprite-url($sprites);
+		background-position: sprite-position($sprites, $name);
+		height: image-height(sprite-file($sprites, $name));
+		width: image-width(sprite-file($sprites, $name));
+		line-height: image-height(sprite-file($sprites, $name));
+
+		
+		@if $retina {
+			@media (-webkit-min-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5){
+				background-image: sprite-url($sprites2x);
+				background-position: 0 round(nth(sprite-position($sprites2x, $name), 2) / 2);
+				height: round(image-height(sprite-file($sprites2x, $name)) / 2);
+				width: round(image-width(sprite-file($sprites2x, $name)) /2 );
+
+				//treat the @2x retina sprite sheet as 50% wide for double resolution upon display
+				@include background-size(ceil(image-width(sprite-path($sprites2x)) / 2) auto);
+			 }
+		}
+	}
+	 
+
+}
+
+
+
+// // Creates a backgrounded image (and retina version if enabled)
+// @mixin icon-background($sprites, $name, $display: block){
+
+// 	@if $doImages {
+// 		background-position: sprite-position($sprites, $name);
+// 		@extend %adminIcon;
+// 	}
+// }
+
+// @mixin glyphicon-background($sprites, $name, $display: block){
+
+// 	@if $doImages {
+// 		background-position: sprite-position($sprites, $name);
+// 		@extend %glyphicon;
+// 	}
+// }
+
+// // Adds a background to this element, and to is <a>, which acts as the hover
+// @mixin image-link($name, $hover: true) {
+// 	@include sprite-background($icons, $name);
+// 	@extend .hide-text;
+
+// 	@if $hover {
+// 		&:hover {
+// 			@include sprite-background(#{$name}-hover);
+// 		}
+// 	}
+// }
+
+
+
+// Makes a class named $name with a sprite $name
+@mixin img($name){
+	.#{$name} { @include sprite-background($sprites1x, $name); }
+}
+
+// // Makes a class named $name with a sprite $name
+// @mixin imgNamed($className, $imgName){
+// 	.#{$className} { @include sprite-background($icons, $imgName); }
+// }
+
+// // Makes a class named $name with a sprite $name
+// @mixin iconNamed($className, $imgName){
+// 	.#{$className} { @include icon-background($icons, $imgName, inline-block); }
+// }
+
+// // Makes a class named $name with a sprite $name
+// @mixin glyphiconNamed($className, $imgName){
+// 	.#{$className} { @include glyphicon-background($glyphicons, $imgName, inline-block); }
+// }
+
+// // Just the styles required for the $name sprite
+// @mixin spr($name, $display: inline-block){
+// 	@include sprite-background($icons, $name, $display);
+// }

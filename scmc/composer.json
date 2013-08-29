@@ -1,0 +1,14 @@
+{
+	"name": "scmc/slim-mvc",
+	"require": {
+		"slim/slim": "*",
+		"slim/extras": "*",
+		"twig/twig": "*"
+	},
+	"autoload": {
+		"psr-0": {
+			"SCMC": "vendor/",
+			"Controller": "./"
+		}
+	}
+}

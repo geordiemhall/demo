@@ -1,0 +1,21 @@
+/* Essentials
+================================== */
+
+body {
+	color: #999;
+	font-weight: $light;
+	// @extend %fontSmooth;
+}
+
+a {
+	font-weight: $semibold;
+	@extend %fontSmooth;
+	@extend %pushDown;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+
+$sansFontFamily: $proxima;
