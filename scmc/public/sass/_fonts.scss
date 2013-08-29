@@ -1,0 +1,20 @@
+/* Fonts
+================================== */
+
+$proxima: "proxima-nova", "Helvetica Neue", "Helvetica", sans-serif;
+$proximaSoft: "proxima-nova-soft", "Helvetica Neue", "Helvetica", sans-serif;
+$handWritten: "alexa-std", "banshee-std", "flood-std", $proxima;
+
+$bold: 700;
+$semibold: 600;
+$regular: 400;
+$light: 300;
+
+@mixin font($family: $proxima, $weight: $regular, $size: false){
+	@if $size {
+		font-size: $size;
+	} 
+
+	font-family: $family;
+	font-weight: $regular;
+}

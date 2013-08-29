@@ -1,0 +1,95 @@
+/* Headings
+================================== */
+
+strong {
+	color: #fff;
+	font-weight: $regular;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #fff;
+	@extend %fontSmooth;
+
+	.error & {
+		color: #555;
+		margin-top: 100px;
+	}
+}
+
+h1 {
+	font-size: 70px;
+	line-height: 80px;
+
+	section & {
+		margin: 0 0 85px;
+	}
+
+	@include breakpoint(baby-bear){
+		font-size: 50px;
+		line-height: 55px;
+
+		section & {
+			margin: 0 0 55px;
+		}
+	}
+}
+
+h2 {
+	font-size: 35px;
+	color: #fff;
+	line-height: 38px;
+
+	&.lead {
+		font-weight: $light;
+		color: #b1b1b1;
+	}
+
+	&.big {
+		font-size: 55px;
+		line-height: 60px;
+	}
+
+	strong {
+		font-weight: $bold;
+	}
+}
+
+h3 {
+	font-size: 28px;
+	color: #fff;
+	line-height: 34px;
+
+	&.lead {
+		font-weight: $light;
+		color: #b1b1b1;
+	}
+}
+
+.space-headings {
+	h3 {
+		margin-top: 50px;
+	}
+}
+
+@mixin headingColor($class, $color){
+	.#{$class} h1 {
+
+
+		background: -webkit-linear-gradient(top, #fff, #fff 60%, $color);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+
+
+	}
+}
+
+@include headingColor(purple, #f7c3ff);
+@include headingColor(blue, #c3e1ff);
+@include headingColor(green, #d5ffc3);
+@include headingColor(orange, #ffd4c3);
+@include headingColor(red, #ffc3c3);

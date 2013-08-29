@@ -1,0 +1,23 @@
+/* Footer
+================================== */
+
+.social-icons {
+	a {
+		color: #fff;
+		opacity: .3;
+		width: 200px;
+		max-width: 40%;
+		text-align: center;
+		@include transition(opacity .2s);
+
+		img {
+			display: block;
+			margin: 0 auto 10px;
+		}
+	}
+
+	a:hover {
+		opacity: .5;
+		@include transform(none);
+	}
+}
